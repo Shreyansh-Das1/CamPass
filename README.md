@@ -2,7 +2,7 @@
 
 > Full-stack university event management & ticketing platform
 
-A production-grade backend built with Spring Boot 3, PostgreSQL, and JWT authentication. Supports the full lifecycle of campus events — from club creation and event approval to seat booking, QR-code ticket generation, and attendee check-in.
+A scalable backend built with Spring Boot 3, PostgreSQL, and JWT authentication. Supports the full lifecycle of campus events — from club creation and event approval to seat booking, QR-code ticket generation, and attendee check-in.
 
 ---
 
