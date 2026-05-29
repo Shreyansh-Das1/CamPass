@@ -1,0 +1,33 @@
+version: '1.0'
+
+services:
+
+  postgres:
+    image: postgres:18.1
+    container_name: campass-db
+    restart: always
+    environment:
+      POSTGRES_DB: CEM
+      POSTGRES_USER: shrey
+      POSTGRES_PASSWORD: shrey
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+  backend:
+    build: .
+    container_name: campass
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/CEM
+      SPRING_DATASOURCE_USERNAME: shrey
+      SPRING_DATASOURCE_PASSWORD: shrey
+      JWT_SECRET: VjQxY2tUeWhXbHBLdDhQNk5rQW9wS3JpZ0ZKdE5qWm1k
+
+volumes:
+  postgres_data:
