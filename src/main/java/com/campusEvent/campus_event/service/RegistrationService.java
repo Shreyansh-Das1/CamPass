@@ -26,7 +26,7 @@ public class RegistrationService {
     private RegisRepo regisRepo;
     @Autowired
             private MembershipRepo membershipRepo;
-    Event e;
+
 
 
     public ResObj cancel(Long eventId){
@@ -35,6 +35,9 @@ public class RegistrationService {
             return new ResObj(false,"Registration does not exist");
 
         Registration regist = regisRepo.findByUser_IdAndEvent_Eventid(user.getId(), eventId).orElse(null);
+        if(regist.getRegStats().equals(RegisStatus.CANCELLED))
+            return new ResObj(false,"Registration has been cancelled");
+
         regist.setRegStats(RegisStatus.CANCELLED);
         regisRepo.save(regist);
 
@@ -53,9 +56,8 @@ public class RegistrationService {
         if(!userOfOrgClub(regist.getEvent()))
             return new ResObj(false,"User does not belong to organizing club");
 
-        if(regist.getRegStats().equals(RegisStatus.CANCELLED))
-            return new ResObj(false,"Registration was cancelled");
-
+        if(regist.getRegStats().equals(RegisStatus.CANCELLED) || regist.getRegStats().equals(RegisStatus.USED))
+            return new ResObj(false,"Registration was "+regist.getRegStats());
         regist.setRegStats(RegisStatus.USED);
         regisRepo.save(regist);
         return new ResObj(true,"Attendee Marked Present");
@@ -89,7 +91,7 @@ public class RegistrationService {
         if( regisRepo.existsByUser(userId, eventId))
             throw new IllegalStateException("User already registered");
 
-        e =  eventrepo.findById(eventId).get();
+        Event e =  eventrepo.findById(eventId).get();
 
         if(eventrepo.registerSeat(eventId) == 0)
             throw new IllegalStateException("Event Full");

@@ -15,7 +15,7 @@ public class ClubController {
     ClubService clubService;
 
     @PostMapping("/createclub")
-    @PreAuthorize("hasRole('ORGANIZER, ADMIN')")
+    @PreAuthorize("hasRole('ORGANIZER') or hasRole('ADMIN')")
     public @ResponseBody ClubResDTO createClub(@RequestBody ClubReqDTO club) {
        return clubService.createClub(club);
     }

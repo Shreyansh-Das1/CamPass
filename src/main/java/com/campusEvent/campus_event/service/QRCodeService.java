@@ -26,7 +26,9 @@ public class QRCodeService {
     public byte[] fetchTicket(long eventId) {
          User user = (User) registrationService.getAuthentication().getPrincipal();
          Registration reg = regisrep.findByUser_IdAndEvent_Eventid(user.getId(), eventId).orElse(null);
-
+        if(reg == null){
+            throw new IllegalStateException("Registration not found");
+        }
          int width = 300, height =300;
         BitMatrix bitMatrix = new MultiFormatWriter()
                 .encode(Long.toString(reg.getRegistrationId()), BarcodeFormat.QR_CODE, width, height);

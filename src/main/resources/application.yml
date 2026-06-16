@@ -3,16 +3,16 @@ spring:
     name:Campus Event
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/CEM
+    url: ${SPRING_DATASOURCE_URL}
     driver-class-name: org.postgresql.Driver
-    username: shrey
-    password: shrey
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
 
   jpa:
     hibernate:
       ddl-auto: update
 
 jwt:
-  secret: VjQxY2tUeWhXbHBLdDhQNk5rQW9wS3JpZ0ZKdE5qWm1k
+  secret: ${JWT_SECRET}
   expiration: 86400000  # 1 day in milliseconds
 

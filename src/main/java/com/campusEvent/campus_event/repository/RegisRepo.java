@@ -13,5 +13,5 @@ public interface RegisRepo extends JpaRepository<Registration,Long> {
     List<Registration> findByEvent(Event event); //Finds all Event attendees
     List<Registration> findByUser(User user); //Finds all events an user registered for
     Optional<Registration> findById(long id);
-    Optional<Registration> findByUser_IdAndEvent_Eventid(Long eventId, Long userId);
+    Optional<Registration> findByUser_IdAndEvent_Eventid(Long userId, Long  eventId);
 }
